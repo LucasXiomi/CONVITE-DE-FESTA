@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Interação - Festa de Aniversário</title>
+
+    <link rel="stylesheet" href="interacao.css">
+
+
+</head>
+
+<body>
+
+
+    <header class="topo">
+
+        <a href="index.html" class="voltar">
+            ← Voltar para Início
+        </a>
+
+        <div class="decoracao">
+            ✦ ✧ ★ ✧ ✦
+        </div>
+
+        <h1>Vamos Celebrar! 🎀</h1>
+
+        <p>
+            Participe da festa e deixe sua mensagem
+            para a aniversariante.
+        </p>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="card-interacao">
+
+            <div class="icone-festa">
+                🎂
+            </div>
+
+            <h2>
+                Confirme sua presença
+            </h2>
+
+            <p class="descricao">
+                Preencha seus dados abaixo para participar
+                desse dia tão especial.
+            </p>
+
+
+            <form id="formFesta">
+
+                <div class="form-group">
+
+                    <label for="nome">
+                        Seu nome
+                    </label>
+
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="idade">
+                        Sua idade
+                    </label>
+
+                    <input type="number" id="idade" min="1" max="120" placeholder="Digite sua idade" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="presenca">
+                        Você vai participar?
+                    </label>
+
+                    <select id="presenca" required>
+
+                        <option value="">
+                            Selecione uma opção
+                        </option>
+
+                        <option value="sim">
+                            Sim, estarei na festa! 💕
+                        </option>
+
+                        <option value="nao">
+                            Não poderei participar 😢
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="mensagem">
+                        Deixe uma mensagem
+                    </label>
+
+                    <textarea id="mensagem" rows="5"
+                        placeholder="Escreva uma mensagem para a aniversariante..."></textarea>
+
+                </div>
+
+
+                <button type="submit" class="btn-confirmar">
+                    Confirmar Presença 🎉
+                </button>
+
+            </form>
+
+
+            <div id="resultado" class="resultado"></div>
+
+        </section>
+
+
+        <section class="card-surpresa">
+
+            <div class="surpresa-icone">
+                🎁
+            </div>
+
+            <h2>
+                Mensagem Especial
+            </h2>
+
+            <p>
+                Clique no botão para receber
+                uma mensagem especial!
+            </p>
+
+            <button id="btnSurpresa" class="btn-surpresa">
+                Abrir Surpresa ✨
+            </button>
+
+            <div id="mensagemSurpresa" class="mensagem-surpresa"></div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            💕 Obrigado por fazer parte desse momento! 💕
+        </p>
+
+        <span>
+            © 2026 - Festa de Aniversário
+        </span>
+
+    </footer>
+    <a href="https://forms.gle/vsv5EXLeEL7oz4aTA" target="_blank" rel="noopener noreferrer" class="btn-google">
+        Confirmar pelo Google Forms 💌
+    </a>
+
+    <script>
+
+        const form = document.getElementById('formFesta');
+
+        const resultado = document.getElementById('resultado');
+
+        form.addEventListener('submit', function (event) {
+
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+
+            const presenca = document.getElementById('presenca').value;
+
+            const mensagem = document.getElementById('mensagem').value;
+
+            if (presenca === 'sim') {
+
+                resultado.innerHTML = `
+                <div class="sucesso">
+                    <span class="resultado-icone">🎉</span>
+
+                    <h3>
+                        Presença confirmada!
+                    </h3>
+
+                    <p>
+                        Que alegria, ${nome}!
+                        Esperamos você na festa! 💕
+                    </p>
+
+                    ${mensagem
+                        ? `<p class="mensagem-convidado">
+                                "${mensagem}"
+                               </p>`
+                        : ''
+                    }
+                </div>
+            `;
+
+            } else {
+
+                resultado.innerHTML = `
+                <div class="recusa">
+                    <span class="resultado-icone">💗</span>
+
+                    <h3>
+                        Que pena!
+                    </h3>
+
+                    <p>
+                        Obrigado por avisar, ${nome}.
+                        Você estará presente em nossos pensamentos!
+                    </p>
+
+                    ${mensagem
+                        ? `<p class="mensagem-convidado">
+                                "${mensagem}"
+                               </p>`
+                        : ''
+                    }
+                </div>
+            `;
+
+            }
+
+        });
+
+
+        const btnSurpresa = document.getElementById('btnSurpresa');
+
+        const mensagemSurpresa = document.getElementById('mensagemSurpresa');
+
+        const mensagens = [
+            'Que seu dia seja cheio de sorrisos! 🌸',
+            'Que todos os seus sonhos se realizem! ✨',
+            'Que nunca faltem amor, alegria e diversão! 💕',
+            'Hoje é dia de celebrar a vida! 🎂',
+            'Que essa festa seja inesquecível! 🎀'
+        ];
+
+        btnSurpresa.addEventListener('click', function () {
+
+            const numero =
+                Math.floor(Math.random() * mensagens.length);
+
+            mensagemSurpresa.textContent = mensagens[numero];
+
+            mensagemSurpresa.classList.remove('mostrar');
+
+            setTimeout(function () {
+                mensagemSurpresa.classList.add('mostrar');
+            }, 50);
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
